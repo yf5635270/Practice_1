@@ -1,19 +1,34 @@
 package org.yf.service;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.yf.mapper.UserMapper;
+
+import javax.annotation.PostConstruct;
 
 @Component
-public class UserService {
+public class UserService  {
 
+    private OrderService orderService;
 
-    @Autowired
-    private UserMapper userMapper;
+//    public UserService() {
+//        System.out.println("0");
+//    }
+
+    public UserService(OrderService orderService) {
+        this.orderService = orderService;
+        System.out.println("1");
+    }
+
+    public UserService(OrderService orderService,OrderService orderService1) {
+        this.orderService = orderService;
+        System.out.println("2");
+    }
 
 
     public void test(){
-        System.out.println("测试");
+        System.out.println(orderService);
     }
+
 }
