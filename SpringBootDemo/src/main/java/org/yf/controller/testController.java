@@ -13,7 +13,9 @@ public class testController {
     private UserService userService;
 
     @GetMapping("index")
-    public void test(){
+    public String test(){
+
         userService.test();
+        return "index1";
     }
 }

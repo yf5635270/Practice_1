@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <description>mvc配置</description>
+    <mvc:default-servlet-handler/>
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.yf.**"/>
+    <!--
+    本项目freemarker基础依赖包
+    （spring-context-support 4.0.4.RELEASE）
+    （freemarker 2.3.20）
+    -->
+    <bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!-- freemarkerPagesPaths 在具体项目的applicationContext.xml中定义 -->
+        <property name="templateLoaderPaths" ref="freemarkerPagesPaths" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="freemarkerSettings" ref="freemarkerSetting"/>
+    </bean>
+
+    <util:properties id="freemarkerSetting">
+        <prop key="template_update_delay">10</prop>
+        <prop key="locale">zh_CN</prop>
+        <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+        <prop key="date_format">yyyy-MM-dd</prop>
+        <prop key="number_format">#.##</prop>
+    </util:properties>
+
+    <!-- freemarker页面文件路径 -->
+    <util:list id="freemarkerPagesPaths">
+        <value>/WEB-INF/pages/</value>
+    </util:list>
+
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="cache" value="true"/>
+        <property name="suffix" value=".html"/>
+        <property name="order" value="0"/>
+    </bean>
+
+
+    <!-- 使用缓存mvc注解配置 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- 配置StringHttpMessageConverter当@ResponseBody 时中文正常显示 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!--<value>text/html;charset=UTF-8</value>-->
+                        <value>application/json;charset=UTF-8</value>
+                        <value>application/xml;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <!-- 是否输出值为null的字段 ，默认是false -->
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullNumberAsZero</value>
+                        <value>WriteNullListAsEmpty</value>
+                        <value>WriteNullStringAsEmpty</value>
+                        <value>WriteNullBooleanAsFalse</value>
+                        <value>WriteDateUseDateFormat</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+</beans>
