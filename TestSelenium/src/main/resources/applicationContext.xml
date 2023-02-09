@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	   http://www.springframework.org/schema/aop
+	   http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <mvc:annotation-driven/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <context:component-scan base-package="com.hlpay.*"/>
+
+    <!-- 重置密钥路径 -->
+    <bean class="com.yzhl.plugin.security.rsa.RsaConfig">
+        <constructor-arg name="defaultPath" value="[rsa.path]"/>
+    </bean>
+
+    <context:property-placeholder location="classpath:props/db.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/redirect.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/params.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/web.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/cache_hlpay.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/auth.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/adminUser.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:props/encrypt.properties" file-encoding="UTF-8"
+                                  ignore-unresolvable="true"/>
+
+    <import resource="spring/spring-mybatis.xml"/>
+    <import resource="spring/spring-redis.xml"/>
+</beans>
