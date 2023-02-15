@@ -12,8 +12,8 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("index")
+    @GetMapping("testInsert")
     public void test(){
-        userService.test();
+        userService.testInsert();
     }
 }
