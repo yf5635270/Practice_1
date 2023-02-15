@@ -1,5 +1,6 @@
 package com.yf;
 
+import com.yf.service.MemberService;
 import com.yf.service.OrderService;
 import com.yf.service.UserService;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import javax.swing.*;
 import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,10 +40,16 @@ public class MyApplication {
 ////==End==== 1 - 17 ========
 
 
- //==Begin==== 18 -  ======== 2023-02-14 2:36
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class);
-        UserService userService = applicationContext.getBean(UserService.class);
-        userService.test();
+//==Begin==== 18 -  20========
+//        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class);
+//        UserService userService = applicationContext.getBean(UserService.class);
+//        userService.testProperties();
+//
+//        MemberService memberService =  applicationContext.getBean(MemberService.class);
+//        memberService.test();
+//==end==== 18 -  20========
+
+        SpringApplication.run(MyApplication.class);
     }
 }
 

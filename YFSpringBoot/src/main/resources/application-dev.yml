@@ -1,0 +1,18 @@
+# 启动变量配置 spring.profiles.active=dev
+# 配置启动项目后可以使用此文件内容
+# 配置值与文件-后的参数一致，如application-dev.properties，配置参数为dev
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/leon
+    username: root
+    password: 123456
+
+test:
+  condition : test.true
+  name : test.yangfei
+  password : test.123456
+  age : 37
+
+yf:
+  name: yangfeidev
+  password: 123456dev
